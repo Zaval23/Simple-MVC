@@ -25,15 +25,27 @@ $User = Config::getObject('core.user.class');
             <a class="nav-link" href="<?= WebRouter::link("login/login") ?>">[Вход]</a>
         </li>
         <?php endif; ?>
-        <?php  if ($User->isAllowed("admin/adminusers/index")): ?>
+        <?php  if ($User->isAllowed("admin/adminarticle/index")): ?>
         <li class="nav-item ">
-            <a class="nav-link" href="<?= WebRouter::link("admin/adminusers/index") ?>"> Пользователи </a>
+            <a class="nav-link" href="<?= WebRouter::link("admin/adminarticle/index") ?>"> Статьи </a>
+        </li>
+        <?php endif; ?>
+        
+        <?php  if ($User->isAllowed("admin/admincategory/index")): ?>
+        <li class="nav-item ">
+            <a class="nav-link" href="<?= WebRouter::link("admin/admincategory/index") ?>"> Категории </a>
+        </li>
+        <?php endif; ?>
+        
+        <?php  if ($User->isAllowed("admin/adminsubcategory/index")): ?>
+        <li class="nav-item ">
+            <a class="nav-link" href="<?= WebRouter::link("admin/adminsubcategory/index") ?>"> Подкатегории </a>
         </li>
         <?php endif; ?>
         
         <?php  if ($User->isAllowed("admin/adminusers/index")): ?>
         <li class="nav-item ">
-            <a class="nav-link" href="<?= WebRouter::link("admin/notes/index") ?>"> Заметки </a>
+            <a class="nav-link" href="<?= WebRouter::link("admin/adminusers/index") ?>"> Пользователи </a>
         </li>
         <?php endif; ?>
         

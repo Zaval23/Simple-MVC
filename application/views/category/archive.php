@@ -1,30 +1,30 @@
 <?php 
 use ItForFree\SimpleMVC\Router\WebRouter;
 ?>
-<h1><?= $homepageTitle ?></h1>
 
-<ul id="headlines">
+<h1><?= htmlspecialchars($pageHeading) ?></h1>
+
+<?php if ($category): ?>
+    <h3 class="categoryDescription"><?= htmlspecialchars($category->description) ?></h3>
+<?php endif; ?>
+
+<ul id="headlines" class="archive">
 <?php foreach ($articles as $article): ?>
-    <li class='<?= $article->id ?>'>
+    <li>
         <h2>
             <span class="pubDate">
-                <?= date('j F', strtotime($article->publicationDate)) ?>
+                <?= date('j F Y', strtotime($article->publicationDate)) ?>
             </span>
-            
             <a href="<?= WebRouter::link("article/view&articleId={$article->id}") ?>">
                 <?= htmlspecialchars($article->title) ?>
             </a>
-            
-            <?php if ($article->categoryId && isset($categories[$article->categoryId])): ?>
+
+            <?php if (!$category && $article->categoryId && isset($categories[$article->categoryId])): ?>
                 <span class="category">
                     in 
                     <a href="<?= WebRouter::link("category/archive&categoryId={$article->categoryId}") ?>">
                         <?= htmlspecialchars($categories[$article->categoryId]->name) ?>
                     </a>
-                </span>
-            <?php else: ?>
-                <span class="category">
-                    Без категории
                 </span>
             <?php endif; ?>
             
@@ -50,12 +50,12 @@ use ItForFree\SimpleMVC\Router\WebRouter;
                 </span>
             <?php endif; ?>
         </h2>
-        <p class="content"><?= htmlspecialchars(mb_substr($article->content, 0, 50) . "...") ?></p>
-        <a href="<?= WebRouter::link("article/view&articleId={$article->id}") ?>" class="showContent">
-            Показать полностью
-        </a>
+        <p class="summary"><?= htmlspecialchars($article->summary) ?></p>
     </li>
 <?php endforeach; ?>
 </ul>
 
-<p><a href="<?= WebRouter::link("category/archive") ?>">Архив статей</a></p>
+<p><?= $totalRows ?> стат<?= ($totalRows % 10 >= 2 && $totalRows % 10 <= 4 && ($totalRows % 100 < 10 || $totalRows % 100 >= 20)) ? 'ьи' : (($totalRows % 10 == 1 && $totalRows % 100 != 11) ? 'ья' : 'ей') ?> всего.</p>
+
+<p><a href="<?= WebRouter::link("homepage/index") ?>">Вернуться на главную страницу</a></p>
+
