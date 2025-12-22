@@ -1,9 +1,5 @@
 <?php 
-use ItForFree\SimpleMVC\Config;
 use ItForFree\SimpleMVC\Router\WebRouter;
-
-$Url = Config::getObject('core.router.class');
-$User = Config::getObject('core.user.class');
 ?>
 
 <?php include('includes/admin-categories-nav.php'); ?>

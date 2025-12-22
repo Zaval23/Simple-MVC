@@ -9,11 +9,13 @@ $User = Config::getObject('core.user.class');
 <html>
     <?php include('includes/main/head.php'); ?>
     <body> 
-        <?php include('includes/main/nav.php'); ?>
-        <div class="container">
+        <div id="container">
+            <a href="<?= \ItForFree\SimpleMVC\Router\WebRouter::link("homepage/index") ?>">
+                <img id="logo" src="/images/logo.jpg" alt="Widget News" />
+            </a>
             <?= $CONTENT_DATA ?>
+            <?php include('includes/main/footer.php'); ?>
         </div>
-        <?php include('includes/main/footer.php'); ?>
     </body>
 </html>
 

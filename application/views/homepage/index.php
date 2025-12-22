@@ -50,7 +50,7 @@ use ItForFree\SimpleMVC\Router\WebRouter;
                 </span>
             <?php endif; ?>
         </h2>
-        <p class="content"><?= htmlspecialchars(mb_substr($article->content, 0, 50) . "...") ?></p>
+        <p class="summary"><?= htmlspecialchars(mb_substr($article->content, 0, 50) . "...") ?></p>
         <a href="<?= WebRouter::link("article/view&articleId={$article->id}") ?>" class="showContent">
             Показать полностью
         </a>

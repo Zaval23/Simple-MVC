@@ -9,7 +9,7 @@ class LoginController extends \ItForFree\SimpleMVC\MVC\Controller
     /**
      * {@inheritDoc}
      */
-    public string $layoutPath = 'main.php';
+    public string $layoutPath = 'admin-main.php';
         
     /** 
      * @var string Название страницы
@@ -17,8 +17,8 @@ class LoginController extends \ItForFree\SimpleMVC\MVC\Controller
     public $loginTitle = "Регистрация/Вход в систему";
     
     protected array $rules = [ 
-        ['allow' => true, 'roles' => ['?'], 'actions' => ['login']],
-        ['allow' => true, 'roles' => ['@'], 'actions' => ['logout']],
+        ['allow' => true, 'roles' => ['?', '@'], 'actions' => ['login']], // Разрешить всем доступ к странице входа
+        ['allow' => true, 'roles' => ['@'], 'actions' => ['logout']], // Выход только для авторизованных
     ];
     
     /**
@@ -31,7 +31,7 @@ class LoginController extends \ItForFree\SimpleMVC\MVC\Controller
             $pass = $_POST['password'];
             $User = Config::getObject('core.user.class');
             if($User->login($login, $pass)) {
-                $this->redirect(WebRouter::link("homepage/index"));
+                $this->redirect(WebRouter::link("admin/adminarticle/index"));
             }
             else {
                 $this->redirect(WebRouter::link("login/login&auth=deny"));

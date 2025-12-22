@@ -17,9 +17,8 @@ class CustomCSSAsset extends SimpleAsset {
         'CSS/style.css'
     ];
     
-    public $needs = [    
-       BootstrapAsset::class         
-    ];     
+    // Убрана зависимость от BootstrapAsset для главной страницы
+    // Bootstrap используется только в админке     
     
 }
 

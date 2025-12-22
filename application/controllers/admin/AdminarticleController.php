@@ -6,7 +6,6 @@ use application\models\ArticleModel;
 use application\models\CategoryModel;
 use application\models\SubcategoryModel;
 use application\models\UserModel;
-use ItForFree\SimpleMVC\Config;
 use ItForFree\SimpleMVC\Router\WebRouter;
 
 /**
@@ -81,8 +80,6 @@ class AdminarticleController extends \ItForFree\SimpleMVC\MVC\Controller
      */
     public function addAction()
     {
-        $Url = Config::get('core.router.class');
-        
         if (!empty($_POST['saveNewArticle'])) {
             $articleModel = new ArticleModel();
             $article = $articleModel->loadFromArray($_POST);
@@ -106,9 +103,9 @@ class AdminarticleController extends \ItForFree\SimpleMVC\MVC\Controller
             
             $article->insert();
             
-            $this->redirect($Url::link("admin/adminarticle/index"));
+            $this->redirect(WebRouter::link("admin/adminarticle/index"));
         } elseif (!empty($_POST['cancel'])) {
-            $this->redirect($Url::link("admin/adminarticle/index"));
+            $this->redirect(WebRouter::link("admin/adminarticle/index"));
         } else {
             // Показываем форму
             $categoryModel = new CategoryModel();
@@ -135,7 +132,6 @@ class AdminarticleController extends \ItForFree\SimpleMVC\MVC\Controller
     public function editAction()
     {
         $id = $_GET['id'];
-        $Url = Config::get('core.router.class');
         
         if (!empty($_POST['saveChanges'])) {
             $articleModel = new ArticleModel();
@@ -159,16 +155,16 @@ class AdminarticleController extends \ItForFree\SimpleMVC\MVC\Controller
             
             $article->update();
             
-            $this->redirect($Url::link("admin/adminarticle/index&id=$id"));
+            $this->redirect(WebRouter::link("admin/adminarticle/index&id=$id"));
         } elseif (!empty($_POST['cancel'])) {
-            $this->redirect($Url::link("admin/adminarticle/index&id=$id"));
+            $this->redirect(WebRouter::link("admin/adminarticle/index&id=$id"));
         } else {
             // Показываем форму
             $articleModel = new ArticleModel();
             $article = $articleModel->getById($id);
             
             if (!$article) {
-                $this->redirect($Url::link("admin/adminarticle/index"));
+                $this->redirect(WebRouter::link("admin/adminarticle/index"));
                 return;
             }
             
@@ -204,7 +200,6 @@ class AdminarticleController extends \ItForFree\SimpleMVC\MVC\Controller
     public function deleteAction()
     {
         $id = $_GET['id'];
-        $Url = Config::get('core.router.class');
         
         if (!empty($_POST['deleteArticle'])) {
             $articleModel = new ArticleModel();
@@ -212,13 +207,13 @@ class AdminarticleController extends \ItForFree\SimpleMVC\MVC\Controller
             $article->id = $id;
             $article->delete();
             
-            $this->redirect($Url::link("admin/adminarticle/index"));
+            $this->redirect(WebRouter::link("admin/adminarticle/index"));
         } else {
             $articleModel = new ArticleModel();
             $article = $articleModel->getById($id);
             
             if (!$article) {
-                $this->redirect($Url::link("admin/adminarticle/index"));
+                $this->redirect(WebRouter::link("admin/adminarticle/index"));
                 return;
             }
             

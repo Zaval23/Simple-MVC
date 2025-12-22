@@ -38,5 +38,35 @@ class SubcategoryModel extends \ItForFree\SimpleMVC\MVC\Model
         
         return ['results' => $list, 'totalRows' => count($list)];
     }
+    
+    /**
+     * Вставка новой подкатегории
+     */
+    public function insert(): void
+    {
+        $sql = "INSERT INTO {$this->tableName} (name, categoryId) VALUES (:name, :categoryId)";
+        $st = $this->pdo->prepare($sql);
+        
+        $st->bindValue(":name", $this->name, \PDO::PARAM_STR);
+        $st->bindValue(":categoryId", $this->categoryId, \PDO::PARAM_INT);
+        
+        $st->execute();
+        $this->id = $this->pdo->lastInsertId();
+    }
+    
+    /**
+     * Обновление подкатегории
+     */
+    public function update(): void
+    {
+        $sql = "UPDATE {$this->tableName} SET name = :name, categoryId = :categoryId WHERE id = :id";
+        $st = $this->pdo->prepare($sql);
+        
+        $st->bindValue(":name", $this->name, \PDO::PARAM_STR);
+        $st->bindValue(":categoryId", $this->categoryId, \PDO::PARAM_INT);
+        $st->bindValue(":id", $this->id, \PDO::PARAM_INT);
+        
+        $st->execute();
+    }
 }
 

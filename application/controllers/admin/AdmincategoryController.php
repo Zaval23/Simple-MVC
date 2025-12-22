@@ -3,7 +3,6 @@
 namespace application\controllers\admin;
 
 use application\models\CategoryModel;
-use ItForFree\SimpleMVC\Config;
 use ItForFree\SimpleMVC\Router\WebRouter;
 
 /**
@@ -38,16 +37,14 @@ class AdmincategoryController extends \ItForFree\SimpleMVC\MVC\Controller
      */
     public function addAction()
     {
-        $Url = Config::get('core.router.class');
-        
         if (!empty($_POST['saveNewCategory'])) {
             $categoryModel = new CategoryModel();
             $category = $categoryModel->loadFromArray($_POST);
             $category->insert();
             
-            $this->redirect($Url::link("admin/admincategory/index"));
+            $this->redirect(WebRouter::link("admin/admincategory/index"));
         } elseif (!empty($_POST['cancel'])) {
-            $this->redirect($Url::link("admin/admincategory/index"));
+            $this->redirect(WebRouter::link("admin/admincategory/index"));
         } else {
             $this->view->addVar('newCategoryTitle', "Новая категория");
             $this->view->render('admin/category/add.php');
@@ -60,7 +57,6 @@ class AdmincategoryController extends \ItForFree\SimpleMVC\MVC\Controller
     public function editAction()
     {
         $id = $_GET['id'];
-        $Url = Config::get('core.router.class');
         
         if (!empty($_POST['saveChanges'])) {
             $categoryModel = new CategoryModel();
@@ -68,15 +64,15 @@ class AdmincategoryController extends \ItForFree\SimpleMVC\MVC\Controller
             $category->id = $id;
             $category->update();
             
-            $this->redirect($Url::link("admin/admincategory/index"));
+            $this->redirect(WebRouter::link("admin/admincategory/index"));
         } elseif (!empty($_POST['cancel'])) {
-            $this->redirect($Url::link("admin/admincategory/index"));
+            $this->redirect(WebRouter::link("admin/admincategory/index"));
         } else {
             $categoryModel = new CategoryModel();
             $category = $categoryModel->getById($id);
             
             if (!$category) {
-                $this->redirect($Url::link("admin/admincategory/index"));
+                $this->redirect(WebRouter::link("admin/admincategory/index"));
                 return;
             }
             
@@ -93,7 +89,6 @@ class AdmincategoryController extends \ItForFree\SimpleMVC\MVC\Controller
     public function deleteAction()
     {
         $id = $_GET['id'];
-        $Url = Config::get('core.router.class');
         
         if (!empty($_POST['deleteCategory'])) {
             $categoryModel = new CategoryModel();
@@ -101,13 +96,13 @@ class AdmincategoryController extends \ItForFree\SimpleMVC\MVC\Controller
             $category->id = $id;
             $category->delete();
             
-            $this->redirect($Url::link("admin/admincategory/index"));
+            $this->redirect(WebRouter::link("admin/admincategory/index"));
         } else {
             $categoryModel = new CategoryModel();
             $category = $categoryModel->getById($id);
             
             if (!$category) {
-                $this->redirect($Url::link("admin/admincategory/index"));
+                $this->redirect(WebRouter::link("admin/admincategory/index"));
                 return;
             }
             

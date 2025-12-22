@@ -20,7 +20,7 @@ $User = Config::getObject('core.user.class');
         <li class="nav-item ">
             <a class="nav-link" href="/">Главная</a>
         </li>
-        <?php  if ($User->isAllowed("login/login")): ?>
+        <?php  if ($User->userName === 'guest'): ?>
         <li class="nav-item ">
             <a class="nav-link" href="<?= WebRouter::link("login/login") ?>">[Вход]</a>
         </li>
